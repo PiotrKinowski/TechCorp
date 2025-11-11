@@ -1,8 +1,8 @@
-package org.example.service;
+package com.example.service;
 
-import org.example.model.Employee;
-import org.example.model.Position;
-import org.example.exception.ApiException;
+import com.example.model.Employee;
+import com.example.model.Position;
+import com.example.exception.ApiException;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

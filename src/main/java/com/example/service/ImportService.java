@@ -1,8 +1,8 @@
-package org.example.service;
+package com.example.service;
 
-import org.example.model.Employee;
-import org.example.model.Position;
-import org.example.model.ImportSummary;
+import com.example.model.Employee;
+import com.example.model.Position;
+import com.example.model.ImportSummary;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

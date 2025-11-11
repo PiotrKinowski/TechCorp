@@ -1,8 +1,9 @@
-package org.example.service;
+package com.example.service;
 
-import org.example.model.Employee;
-import org.example.model.Position;
-import org.example.model.CompanyStatistics;
+import com.example.model.Employee;
+import com.example.model.CompanyStatistics;
+import com.example.model.LastNameComparator;
+import com.example.model.Position;
 
 import java.util.*;
 
@@ -12,9 +13,8 @@ public class EmployeeService {
     public EmployeeService() {
         this.employees = new ArrayList<>();
     }
-
-    // Zachowujemy metody z CompanySystem, ale zmieniamy nazwę klasy
     public boolean addEmployee(Employee newEmployee) {
+        if (newEmployee == null) return false;
         for (Employee employee : employees) {
             if (employee.getEmail().equals(newEmployee.getEmail())) {
                 return false;
@@ -27,8 +27,6 @@ public class EmployeeService {
     public List<Employee> getAllEmployees() {
         return new ArrayList<>(employees);
     }
-
-    // Zachowujemy inne metody z CompanySystem jeśli były...
     public List<Employee> findEmployeesByCompany(String company) {
         List<Employee> result = new ArrayList<>();
         for (Employee employee : employees) {
@@ -38,12 +36,39 @@ public class EmployeeService {
         }
         return result;
     }
+    public List<Employee> sortEmployeesByLastName() {
+        List<Employee> sortedList = new ArrayList<>(employees);
+        Collections.sort(sortedList, new LastNameComparator());
+        return sortedList;
+    }
 
-    // DODAJEMY NOWE METODY WYMAGANE W ROZSZERZENIU:
+    public Map<Position, List<Employee>> groupEmployeesByPosition() {
+        Map<Position, List<Employee>> grouped = new HashMap<>();
 
-    /**
-     * Zwraca listę pracowników z wynagrodzeniem niższym niż bazowa stawka ich stanowiska
-     */
+        for (Employee employee : employees) {
+            Position position = employee.getPosition();
+            if (!grouped.containsKey(position)) {
+                grouped.put(position, new ArrayList<>());
+            }
+            grouped.get(position).add(employee);
+        }
+
+        return grouped;
+    }
+
+    public Map<Position, Integer> countEmployeesByPosition() {
+        Map<Position, Integer> counts = new HashMap<>();
+
+        for (Employee employee : employees) {
+            Position position = employee.getPosition();
+            if (!counts.containsKey(position)) {
+                counts.put(position, 0);
+            }
+            counts.put(position, counts.get(position) + 1);
+        }
+
+        return counts;
+    }
     public List<Employee> validateSalaryConsistency() {
         List<Employee> inconsistentEmployees = new ArrayList<>();
         for (Employee employee : employees) {
@@ -54,13 +79,9 @@ public class EmployeeService {
         return inconsistentEmployees;
     }
 
-    /**
-     * Zwraca statystyki dla każdej firmy
-     */
     public Map<String, CompanyStatistics> getCompanyStatistics() {
         Map<String, List<Employee>> employeesByCompany = new HashMap<>();
 
-        // Grupowanie pracowników według firmy
         for (Employee employee : employees) {
             String company = employee.getCompany();
             if (!employeesByCompany.containsKey(company)) {
@@ -95,7 +116,6 @@ public class EmployeeService {
         return statistics;
     }
 
-    // Pomocnicze metody
     public int getEmployeeCount() {
         return employees.size();
     }

@@ -1,4 +1,4 @@
-package org.example.model;
+package com.example.model;
 
 public enum Position {
     PREZES("Prezes", 25000, 1),

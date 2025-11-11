@@ -1,8 +1,15 @@
-package org.example;
+package com.example;
 
-import org.example.model.*;
-import org.example.service.*;
-import org.example.exception.*;
+import com.example.exception.ApiException;
+import com.example.model.CompanyStatistics;
+import com.example.model.Employee;
+import com.example.model.ImportSummary;
+import com.example.service.ApiService;
+import com.example.service.EmployeeService;
+import com.example.service.ImportService;
+import com.example.model.*;
+import com.example.service.*;
+import com.example.exception.*;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +18,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("=== ROZSZERZONY SYSTEM TECHCORP - CSV + API ===\n");
 
-        EmployeeService employeeService = new EmployeeService(); // dawny CompanySystem
+        EmployeeService employeeService = new EmployeeService();
         ImportService importService = new ImportService(employeeService);
         ApiService apiService = new ApiService();
 
@@ -38,12 +45,6 @@ public class Main {
             System.out.println("Dodano " + addedCount + " pracowników z API");
         } catch (ApiException e) {
             System.out.println("Błąd API: " + e.getMessage());
-        }
-
-        System.out.println("\n3. WSZYSCY PRACOWNICY (" + employeeService.getEmployeeCount() + "):");
-        List<Employee> allEmployees = employeeService.getAllEmployees();
-        for (Employee emp : allEmployees) {
-            System.out.println("   - " + emp);
         }
 
         System.out.println("\n4. WALIDACJA WYNAGRODZEŃ:");
