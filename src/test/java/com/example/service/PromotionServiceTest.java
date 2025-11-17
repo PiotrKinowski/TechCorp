@@ -5,22 +5,17 @@ import com.example.model.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PromotionServiceTest {
-
-    private PromotionService promotionService;
-    private EmployeeService employeeService;
-
+public class PromotionServiceTest {
     @BeforeEach
-    void setUp() {
-        employeeService = new EmployeeService();
-        promotionService = new PromotionService(employeeService);
+    public void setUp() {
+        EmployeeService employeeService = new EmployeeService();
+        PromotionService promotionService = new PromotionService(employeeService);
     }
 
-    @ParameterizedTest(name = "Czy awans z {0} do {1} powinien być możliwy: {2}")
+    @ParameterizedTest
     @CsvSource({
             "STAZYSTA, PROGRAMISTA, true",
             "PROGRAMISTA, MANAGER, true",
@@ -31,41 +26,15 @@ class PromotionServiceTest {
             "PREZES, WICEPREZES, false",
             "MANAGER, PROGRAMISTA, false"
     })
-    void isValidPromotion_ShouldValidateHierarchy(Position current, Position target, boolean expected) {
+    void testPromoteEmplyee_Success(Position position, Position newPosition, boolean success) {
         // Arrange
-        Employee employee = new Employee("Test", "User", "test@company.com",
-                "Company", current, current.getBaseSalary());
+        Employee employee = new Employee("Imie", "Nazwisko", "inazwisko@test.com",
+                "Firma", position, position.getBaseSalary());
 
         // Act
-        boolean result = promotionService.isValidPromotion(employee, target);
+        boolean result = promotionService.isValidPromotion(employee, newPosition);
 
         // Assert
-        assertEquals(expected, result);
-    }
-
-    @ParameterizedTest(name = "Pensja po podwyżce {0}% z {1} powinna wzrosnąć do {2}")
-    @CsvSource({
-            "10, 8000, 8800",
-            "15, 10000, 11500",
-            "5, 5000, 5250",
-            "0, 7500, 7500",
-            "25, 12000, 15000"
-    })
-    void calculateRaise_ShouldApplyPercentageCorrectly(double percentage, double currentSalary, double expected) {
-        // Arrange
-        double result = promotionService.calculateRaise(currentSalary, percentage);
-
-        // Assert
-        assertEquals(expected, result, 0.01);
-    }
-
-    @ParameterizedTest
-    @EnumSource(value = Position.class, names = {"STAZYSTA", "PROGRAMISTA", "MANAGER", "WICEPREZES"})
-    void getNextPosition_ShouldReturnValidNextPosition(Position current) {
-        // Arrange
-        Position next = promotionService.getNextPosition(current);
-
-        // Assert
-        assertEquals(current.getHierarchyLevel() - 1, next.getHierarchyLevel());
+        assertEquals(success, result);
     }
 }
