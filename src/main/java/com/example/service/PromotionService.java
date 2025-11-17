@@ -21,4 +21,8 @@ public class PromotionService {
         employee.setSalary(position.getBaseSalary());
         return true;
     }
+
+    public boolean isValidRaise(Employee employee, double percentage) {
+        return true;
+    }
 }
