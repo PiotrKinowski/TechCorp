@@ -31,7 +31,7 @@ public class GradingServiceTest {
                 "InnaFirma", Position.MANAGER, 15000));
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "Czy średnia ocen: {0} wynosi {1}")
     @MethodSource("provideGrades")
     void testCalculateAverageGrade(List<Double> grades, double expectedResult) {
         // Arrange
@@ -49,11 +49,11 @@ public class GradingServiceTest {
 
     static Stream<Arguments> provideGrades() {
         return Stream.of(
-                Arguments.of(Arrays.asList(5), 5.0),
-                Arguments.of(Arrays.asList(4, 4, 4, 4), 4.0),
-                Arguments.of(Arrays.asList(3, 4, 5), 4.0),
-                Arguments.of(Arrays.asList(1, 2, 3, 4, 5), 3.0),
-                Arguments.of(Arrays.asList(5, 5, 3, 4), 4.25)
+                Arguments.of(Arrays.asList(5.0), 5.0),
+                Arguments.of(Arrays.asList(4.0, 4.0, 4.0, 4.0), 4.0),
+                Arguments.of(Arrays.asList(3.0, 4.0, 5.0), 4.0),
+                Arguments.of(Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0), 3.0),
+                Arguments.of(Arrays.asList(5.0, 5.0, 3.0, 4.0), 4.25)
         );
     }
 

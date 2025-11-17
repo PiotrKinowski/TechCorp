@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,11 +15,25 @@ public class GradingService {
     }
 
     public boolean addGrade(String email, double grade) {
+        if (email == null || grade < 1 || grade > 5) {
+            return false;
+        }
+
+        if (!gradesHistory.containsKey(email)) {
+            gradesHistory.put(email, new ArrayList<>());
+            gradesHistory.get(email).add(grade);
+        }
+        else {
+            gradesHistory.get(email).add(grade);
+        }
         return true;
     }
 
 
     public double calculateAverageGrade(String email) {
-        return 0;
+        List<Double> grades = gradesHistory.get(email);
+        double sum = grades.stream().mapToDouble(Double::doubleValue).sum();
+        double average = sum / grades.size();
+        return average;
     }
 }
