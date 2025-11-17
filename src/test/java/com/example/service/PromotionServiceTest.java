@@ -11,12 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PromotionServiceTest {
 
     private PromotionService promotionService;
-    private EmployeeService employeeService;
 
     @BeforeEach
     void setUp() {
-        employeeService = new EmployeeService();
-        promotionService = new PromotionService(employeeService);
+        promotionService = new PromotionService();
     }
 
     @ParameterizedTest(name = "Czy awans z {0} na {1} powinien być możliwy: {2}")
@@ -83,5 +81,26 @@ class PromotionServiceTest {
 
         // Assert
         assertEquals(expectedSalary, result);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "10, 9000, true",
+            "25, 8000, true",
+            "40, 8000, true",
+            "50, 8000, false",
+            "25, 10000, false"
+    })
+    void testGiveRaise(int percentage, double currentSalary, boolean success) {
+        // Arrange
+        Employee employee = new Employee("Imie", "Nazwisko", "inazwisko@test.com",
+                "Firma", Position.PROGRAMISTA, currentSalary);
+
+        // Act
+        promotionService.isValidRaise(employee, percentage);
+        double result = employee.getSalary();
+
+        // Assert
+        assertEquals(success, result);
     }
 }
