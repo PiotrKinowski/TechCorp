@@ -15,4 +15,8 @@ public class PromotionService {
         if (employee.getPosition().getHierarchyLevel() != position.getHierarchyLevel() - 1) {return false;}
         return true;
     }
+
+    public boolean promoteEmployee(Employee employee, Position position) {
+        return true;
+    }
 }
