@@ -103,7 +103,7 @@ class PromotionServiceTest {
         assertEquals(success, result);
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "Pensja po podwyżce o {0}% z pensji {1} powinna wynosić: {2}")
     @CsvSource({
             "10, 9000, 9900",
             "25, 8000, 10000",

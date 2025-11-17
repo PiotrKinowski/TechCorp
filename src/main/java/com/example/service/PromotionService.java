@@ -33,6 +33,8 @@ public class PromotionService {
     }
 
     public boolean giveRaise(Employee employee, double percentage) {
+        if(!isValidRaise(employee, percentage)) {return false;}
+        employee.setSalary(employee.getSalary()+employee.getSalary()*percentage/100);
         return true;
     }
 }
