@@ -89,7 +89,7 @@ class PromotionServiceTest {
             "25, 8000, true",
             "40, 8000, true",
             "50, 8000, false",
-            "25, 10000, false"
+            "40, 10000, false"
     })
     void testGiveRaise(double percentage, double currentSalary, boolean success) {
         // Arrange
