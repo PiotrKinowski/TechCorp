@@ -31,4 +31,8 @@ public class PromotionService {
         if (newSalary >= maxSalary) {return false;}
         return true;
     }
+
+    public boolean giveRaise(Employee employee, double percentage) {
+        return true;
+    }
 }
