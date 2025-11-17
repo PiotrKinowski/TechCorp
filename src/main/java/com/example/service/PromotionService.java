@@ -25,10 +25,10 @@ public class PromotionService {
     public boolean isValidRaise(Employee employee, double percentage) {
         if (employee == null || percentage <= 0) {return false;}
 
-        double newSalary = employee.getSalary() + employee.getSalary()*percentage;
-        double maxSalary = employee.getPosition().getHierarchyLevel() + 4000;
+        double newSalary = employee.getSalary() + employee.getSalary()*percentage/100;
+        double maxSalary = employee.getPosition().getBaseSalary() + 4000;
 
-        if (newSalary > maxSalary) {return false;}
+        if (newSalary >= maxSalary) {return false;}
         return true;
     }
 }

@@ -91,7 +91,7 @@ class PromotionServiceTest {
             "50, 8000, false",
             "40, 10000, false"
     })
-    void testGiveRaise(double percentage, double currentSalary, boolean success) {
+    void testIsValidRaise(double percentage, double currentSalary, boolean success) {
         // Arrange
         Employee employee = new Employee("Imie", "Nazwisko", "inazwisko@test.com",
                 "Firma", Position.PROGRAMISTA, currentSalary);
