@@ -12,7 +12,7 @@ public class PromotionService {
 
     public boolean isValidPromotion(Employee employee, Position position) {
         if (employee == null || position == null) {return false;}
-        if (employee.getPosition().getHierarchyLevel() != position.getHierarchyLevel() - 1) {return false;}
+        if (employee.getPosition().getHierarchyLevel() != position.getHierarchyLevel() + 1) {return false;}
         return true;
     }
 
