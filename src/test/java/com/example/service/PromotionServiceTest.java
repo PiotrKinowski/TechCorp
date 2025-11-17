@@ -63,7 +63,7 @@ class PromotionServiceTest {
         assertEquals(success, result);
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "Pensja po awansie z {0} na {1} powinna wynosić: {2}")
     @CsvSource({
             "STAZYSTA, PROGRAMISTA, 8000",
             "PROGRAMISTA, MANAGER, 12000",
@@ -83,7 +83,7 @@ class PromotionServiceTest {
         assertEquals(expectedSalary, result);
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "Czy powinien mieć możliwość otrzymania podwyżki o {0}% z pensji {1}: {2}")
     @CsvSource({
             "10, 9000, true",
             "25, 8000, true",
@@ -101,5 +101,24 @@ class PromotionServiceTest {
 
         // Assert
         assertEquals(success, result);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "10, 9000, 9900",
+            "25, 8000, 10000",
+            "40, 8000, 11200"
+    })
+    void testGiveRaise(double percentage, double currentSalary, double expectedSalary) {
+        // Arrange
+        Employee employee = new Employee("Imie", "Nazwisko", "inazwisko@test.com",
+                "Firma", Position.PROGRAMISTA, currentSalary);
+
+        // Act
+        promotionService.giveRaise(employee, percentage);
+        double result = employee.getSalary();
+
+        // Assert
+        assertEquals(expectedSalary, result);
     }
 }
