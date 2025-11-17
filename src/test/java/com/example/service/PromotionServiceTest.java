@@ -19,7 +19,7 @@ class PromotionServiceTest {
         promotionService = new PromotionService(employeeService);
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "Czy awans z {0} na {1} powinien być możliwy: {2}")
     @CsvSource({
             "STAZYSTA, PROGRAMISTA, true",
             "PROGRAMISTA, MANAGER, true",
