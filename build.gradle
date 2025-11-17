@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'jacoco'
+    id 'application'
 }
 
 group = 'com.example'
@@ -11,33 +11,91 @@ java {
     targetCompatibility = JavaVersion.VERSION_21
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 repositories {
     mavenCentral()
-}
-
-jacoco{
-    toolVersion = "0.8.11"
-}
-
-jacocoTestReport {
-    dependsOn test
-    reports {
-        html.required = true
-        xml.required = false
-        csv.required = false
-    }
 }
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.opencsv:opencsv:5.8'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.9.3'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
 }
 
 test {
     useJUnitPlatform()
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+application {
+    mainClass = 'com.example.Main'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.example.Main',
+                'Implementation-Title': project.name,
+                'Implementation-Version': project.version
+        )
+    }
+}
+
+task fatJar(type: Jar) {
+    group = 'build'
+    description = 'Tworzy JAR ze wszystkimi zależnościami (uber/fat JAR)'
+
+    archiveClassifier = 'with-dependencies'
+
+    manifest {
+        attributes(
+                'Main-Class': 'com.example.Main',
+                'Implementation-Title': project.name,
+                'Implementation-Version': project.version
+        )
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    with jar
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+task projectInfo {
+    group = 'help'
+    description = 'Wyświetla informacje o projekcie'
+
+    doLast {
+        println ""
+        println "=== Informacje o projekcie ==="
+        println "Nazwa: ${project.name}"
+        println "Grupa: ${project.group}"
+        println "Wersja: ${project.version}"
+        println "Java: ${java.sourceCompatibility}"
+        println "=============================="
+        println ""
+    }
+}
+
+task showDependencies {
+    group = 'help'
+    description = 'Wyświetla drzewo zależności'
+
+    doLast {
+        configurations.runtimeClasspath.each { println it.name }
+    }
+}
+
+wrapper {
+    gradleVersion = '8.5'
+    distributionType = Wrapper.DistributionType.ALL
 }
