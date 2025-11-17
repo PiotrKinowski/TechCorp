@@ -37,7 +37,7 @@ public class GradingServiceTest {
         // Arrange
         String email = "j.kowalski@techcorp.pl";
         for (Double grade : grades) {
-            gradingService.addGrade(email);
+            gradingService.addGrade(email, grade);
         }
 
         // Act
