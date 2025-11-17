@@ -20,6 +20,7 @@ public class PromotionService {
         if(!isValidPromotion(employee, position)) {return false;}
 
         employee.setPosition(position);
+        employee.setSalary(position.getBaseSalary());
         return true;
     }
 }
