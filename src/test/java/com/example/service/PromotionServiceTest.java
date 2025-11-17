@@ -64,4 +64,24 @@ class PromotionServiceTest {
         // Assert
         assertEquals(success, result);
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "STAZYSTA, PROGRAMISTA, 8000",
+            "PROGRAMISTA, MANAGER, 12000",
+            "MANAGER, WICEPREZES, 18000",
+            "WICEPREZES, PREZES, 25000"
+    })
+    void testPromoteEmployee_Salary(Position position, Position newPosition, double expectedSalary) {
+        // Arrange
+        Employee employee = new Employee("Imie", "Nazwisko", "inazwisko@test.com",
+                "Firma", position, position.getBaseSalary());
+
+        // Act
+        promotionService.promoteEmployee(employee, newPosition);
+        double result = employee.getSalary();
+
+        // Assert
+        assertEquals(expectedSalary, result);
+    }
 }
