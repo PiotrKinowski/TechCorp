@@ -8,11 +8,15 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PromotionServiceTest {
+class PromotionServiceTest {
+
+    private PromotionService promotionService;
+    private EmployeeService employeeService;
+
     @BeforeEach
-    public void setUp() {
-        EmployeeService employeeService = new EmployeeService();
-        PromotionService promotionService = new PromotionService(employeeService);
+    void setUp() {
+        employeeService = new EmployeeService();
+        promotionService = new PromotionService(employeeService);
     }
 
     @ParameterizedTest
@@ -26,7 +30,7 @@ public class PromotionServiceTest {
             "PREZES, WICEPREZES, false",
             "MANAGER, PROGRAMISTA, false"
     })
-    void testPromoteEmplyee_Success(Position position, Position newPosition, boolean success) {
+    void testIsValidPromotion_Success(Position position, Position newPosition, boolean success) {
         // Arrange
         Employee employee = new Employee("Imie", "Nazwisko", "inazwisko@test.com",
                 "Firma", position, position.getBaseSalary());
