@@ -42,7 +42,7 @@ class PromotionServiceTest {
         assertEquals(success, result);
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "Czy powinien zostać awansowany z {0} na {1}: {2}")
     @CsvSource({
             "STAZYSTA, PROGRAMISTA, true",
             "PROGRAMISTA, MANAGER, true",

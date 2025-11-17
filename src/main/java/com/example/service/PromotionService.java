@@ -17,6 +17,9 @@ public class PromotionService {
     }
 
     public boolean promoteEmployee(Employee employee, Position position) {
+        if(!isValidPromotion(employee, position)) {return false;}
+
+        employee.setPosition(position);
         return true;
     }
 }
