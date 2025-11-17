@@ -91,14 +91,13 @@ class PromotionServiceTest {
             "50, 8000, false",
             "25, 10000, false"
     })
-    void testGiveRaise(int percentage, double currentSalary, boolean success) {
+    void testGiveRaise(double percentage, double currentSalary, boolean success) {
         // Arrange
         Employee employee = new Employee("Imie", "Nazwisko", "inazwisko@test.com",
                 "Firma", Position.PROGRAMISTA, currentSalary);
 
         // Act
-        promotionService.isValidRaise(employee, percentage);
-        double result = employee.getSalary();
+        boolean result = promotionService.isValidRaise(employee, percentage);
 
         // Assert
         assertEquals(success, result);
