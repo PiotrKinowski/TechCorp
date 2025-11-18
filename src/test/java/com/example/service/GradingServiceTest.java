@@ -84,14 +84,14 @@ public class GradingServiceTest {
         employeesGrades1.put("a.kowalski@techcorp.pl",Arrays.asList(5.0));
 
         Map<String,List<Double>> employeesGrades2 = new HashMap<>();
-        employeesGrades1.put("j.kowalski@techcorp.pl",Arrays.asList(3.0, 4.0, 2.0));
-        employeesGrades1.put("a.nowak@techcorp.pl",Arrays.asList(2.0, 2.0, 3.0, 4.0, 4.0));
-        employeesGrades1.put("a.kowalski@techcorp.pl",Arrays.asList(4.0, 3.5));
+        employeesGrades2.put("j.kowalski@techcorp.pl",Arrays.asList(3.0, 4.0, 2.0));
+        employeesGrades2.put("a.nowak@techcorp.pl",Arrays.asList(2.0, 2.0, 3.0, 4.0, 4.0));
+        employeesGrades2.put("a.kowalski@techcorp.pl",Arrays.asList(4.0, 3.5));
 
         Map<String,List<Double>> employeesGrades3 = new HashMap<>();
-        employeesGrades1.put("j.kowalski@techcorp.pl",Arrays.asList(3.5, 4.5, 5.0));
-        employeesGrades1.put("a.nowak@techcorp.pl",Arrays.asList(2.0, 3.5, 5.0, 5.0, 5.0));
-        employeesGrades1.put("a.kowalski@techcorp.pl",Arrays.asList(4.0));
+        employeesGrades3.put("j.kowalski@techcorp.pl",Arrays.asList(3.5, 4.5, 5.0));
+        employeesGrades3.put("a.nowak@techcorp.pl",Arrays.asList(2.0, 3.5, 5.0, 5.0, 5.0));
+        employeesGrades3.put("a.kowalski@techcorp.pl",Arrays.asList(4.0));
         return Stream.of(
                 Arguments.of(employeesGrades1, "a.kowalski@techcorp.pl"),
                 Arguments.of(employeesGrades2, "a.kowalski@techcorp.pl"),

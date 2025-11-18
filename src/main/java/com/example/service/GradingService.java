@@ -38,6 +38,16 @@ public class GradingService {
     }
 
     public String bestPerformingEmployee() {
-        return "";
+        String bestEmployee = null;
+        for (String email : gradesHistory.keySet()) {
+            if (bestEmployee == null) {
+                bestEmployee = email;
+            }
+
+            else if (calculateAverageGrade(email) > calculateAverageGrade(bestEmployee)) {
+                bestEmployee = email;
+            }
+        }
+        return bestEmployee;
     }
 }
