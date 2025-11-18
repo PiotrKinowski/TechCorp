@@ -5,6 +5,7 @@ import com.example.model.CompanyStatistics;
 import com.example.model.LastNameComparator;
 import com.example.model.Position;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class EmployeeService {
@@ -118,5 +119,17 @@ public class EmployeeService {
 
     public int getEmployeeCount() {
         return employees.size();
+    }
+
+    public String calculateSeniority(LocalDate current) {
+        return "";
+    }
+
+    public List<Employee> filterBySeniorityRange(int min, int max, LocalDate current) {
+        return new ArrayList<>();
+    }
+
+    public List<Employee> findJubilees(LocalDate current) {
+        return new ArrayList<>();
     }
 }

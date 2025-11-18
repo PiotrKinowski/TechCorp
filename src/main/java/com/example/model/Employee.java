@@ -1,5 +1,7 @@
 package com.example.model;
 
+import java.time.LocalDate;
+
 public class Employee {
     private String firstName;
     private String lastName;
@@ -7,6 +9,7 @@ public class Employee {
     private String company;
     private Position position;
     private double salary;
+    private LocalDate hireDate;
 
     public Employee(String firstName, String lastName, String email,
                     String company, Position position, double salary) {
@@ -42,6 +45,10 @@ public class Employee {
         return salary;
     }
 
+    public LocalDate getHireDate() {
+        return hireDate;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -64,6 +71,10 @@ public class Employee {
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    public void setHireDate(LocalDate hireDate) {
+        this.hireDate = hireDate;
     }
 
     @Override
