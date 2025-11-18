@@ -121,15 +121,32 @@ public class EmployeeService {
         return employees.size();
     }
 
-    public String calculateSeniority(LocalDate current) {
-        return "";
+    public int calculateSeniority(Employee employee1, LocalDate current) {
+        if (current.isAfter(employee1.getHireDate())){
+            return current.getYear() - employee1.getHireDate().getYear();
+        }
+        return 0;
     }
 
     public List<Employee> filterBySeniorityRange(int min, int max, LocalDate current) {
-        return new ArrayList<>();
+        List<Employee> filteredEmployees = new ArrayList<>();
+        for (Employee employee : employees) {
+            int seniority = calculateSeniority(employee, current);
+            if (seniority >= min && seniority <= max) {
+                filteredEmployees.add(employee);
+            }
+        }
+        return filteredEmployees;
     }
 
     public List<Employee> findJubilees(LocalDate current) {
-        return new ArrayList<>();
+        List<Employee> jubilees = new ArrayList<>();
+        for (Employee employee : employees) {
+            int seniority = calculateSeniority(employee, current);
+            if (seniority %10 == 0) {
+                jubilees.add(employee);
+            }
+        }
+        return jubilees;
     }
 }
