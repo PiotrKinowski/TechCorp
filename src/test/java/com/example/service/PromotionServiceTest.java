@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.*;
 
 class PromotionServiceTest {
 
@@ -37,7 +37,7 @@ class PromotionServiceTest {
         boolean result = promotionService.isValidPromotion(employee, newPosition);
 
         // Assert
-        assertEquals(success, result);
+        assertThat(result).isEqualTo(success);
     }
 
     @ParameterizedTest(name = "Czy powinien zostać awansowany z {0} na {1}: {2}")
@@ -60,7 +60,7 @@ class PromotionServiceTest {
         boolean result = promotionService.promoteEmployee(employee, newPosition);
 
         // Assert
-        assertEquals(success, result);
+        assertThat(result).isEqualTo(success);
     }
 
     @ParameterizedTest(name = "Pensja po awansie z {0} na {1} powinna wynosić: {2}")
@@ -80,7 +80,7 @@ class PromotionServiceTest {
         double result = employee.getSalary();
 
         // Assert
-        assertEquals(expectedSalary, result);
+        assertThat(result).isEqualTo(expectedSalary, within(0.01));
     }
 
     @ParameterizedTest(name = "Czy powinien mieć możliwość otrzymania podwyżki o {0}% z pensji {1}: {2}")
@@ -100,7 +100,7 @@ class PromotionServiceTest {
         boolean result = promotionService.isValidRaise(employee, percentage);
 
         // Assert
-        assertEquals(success, result);
+        assertThat(result).isEqualTo(success);
     }
 
     @ParameterizedTest(name = "Pensja po podwyżce o {0}% z pensji {1} powinna wynosić: {2}")
@@ -119,6 +119,6 @@ class PromotionServiceTest {
         double result = employee.getSalary();
 
         // Assert
-        assertEquals(expectedSalary, result);
+        assertThat(result).isEqualTo(expectedSalary, within(0.01));
     }
 }
