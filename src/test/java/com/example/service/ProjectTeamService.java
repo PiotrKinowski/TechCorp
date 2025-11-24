@@ -174,7 +174,7 @@ class ProjectTeamServiceTest {
         // Arrange
         teamService.createTeam("TeamA", teamA);
         teamService.createTeam("TeamB", teamB);
-        String employeeEmail = "employee1@company.com";
+        String employeeEmail = "prog1@company.com";
 
         // Act
         boolean result = teamService.transferEmployee(employeeEmail, "TeamA", "TeamB");
